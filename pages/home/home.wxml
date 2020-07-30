@@ -1,0 +1,139 @@
+<!--pages/home/home.wxml-->
+
+<view class = "title-name">
+  <view class = "name">HI～I’M liubicheng</view>
+  <view class = "professional">Android/小程序开发/前端开发</view>
+</view>
+
+<view class = "column">
+  <image class = "icon" src = "/images/work.png"></image>
+  <view class = 'text'>My Works</view>
+</view>
+
+<view class = "my-work">
+  <view class = "work-item" wx:for = "{{ workList }}" wx:key = 'index' bindtap = "myWorkClick"
+    data-info = "{{item.id}}">
+    <view class = "title">{{ item.name }}</view>
+    <image class = "icon" src = "{{ item.icon }}"></image>
+  </view>
+</view>
+
+<view class = "column">
+  <image class = "icon" src = "/images/about.png"></image>
+  <view class = 'text'>About Me</view>
+</view>
+
+<view class = "my-info">
+  <view class = "photo-box">
+    <image class = "photo" src = "{{ userInfo.photo }}" mode="aspectFit"></image>
+    <view class = "name-box">
+      <view class = "text">{{ userInfo.name }}</view>
+      <view class = "work">{{ userInfo.work }}</view>
+    </view>
+  </view>
+
+  <view class = "info-one info-1">
+    <view class = "my-info-icon-box"><image class = "my-info-itme-icon" src = '/images/site.png'></image></view>
+    <view class = "text">籍贯：{{ userInfo.city }}</view>
+  </view>
+
+ <view class = "info-one info-2">
+    <image class = "my-info-itme-icon" src = '/images/education.png'></image>
+    <view class = "text">专业：{{ userInfo.major }}</view>
+  </view>
+
+  <view class = "info-one info-3">
+    <image class = "my-info-itme-icon" src = '/images/school.png'></image>
+    <view class = "text">学校：{{ userInfo.school }}</view>
+  </view>
+
+  <view class = "my-talk">{{ userInfo.myTalk }}</view>
+</view>
+
+<view class = "column">
+  <image class = "icon" src = "/images/work_3.png"></image>
+  <view class = 'text'>Work Experience</view>
+</view>
+
+
+<view class = "work-exp" wx:for = '{{ userInfo.workExp }}' wx:key = 'index' bindtap="showWorkExp" data-info = "{{item}}">
+  <view class = "info">
+    <view class = "time">{{ item.time }}</view>
+    <image class = "exp-btn" src = "/images/exp_icon.png"></image>
+  </view>
+  <view class = "company-info">
+    <image class = "logo" src = "{{ item.companyLogo }}"></image>
+    <view class = "name">{{ item.companyName }}</view>
+  </view>
+</view>
+
+<view class = "column">
+  <image class = "icon" src = "/images/phone1.png"></image>
+  <view class = 'text'>Contact Me</view>
+</view>
+
+<view class = "call-me">
+  <view class = "phone">
+    <image class = "icon" src = '/images/phone2.png'></image>
+    <view class = "name">电话：</view>
+    <view class = "text">{{ userInfo.phone }}</view>
+  </view>
+
+  <view class = "phone">
+    <image class = "icon"  src = '/images/email.png'></image>
+    <view class = "name">邮箱：</view>
+    <view class = "text">{{ userInfo.email }}</view>
+  </view>
+
+
+  <view class = "phone wx">
+    <view class = "wx-title">
+      <image class = "icon"  src = '/images/weixin.png'></image>
+      <view class = "name">微信：</view>
+    </view>
+    <view class = "evm">
+      <image class = "img" src = "{{ userInfo.evm }}" show-menu-by-longpress></image>
+      <view class = "text">扫码添加微信</view>
+    </view>
+  </view>
+</view>
+
+<view class = "call-me-btn" bindtap = "call">
+  <view class = "call-me-btn-inner">
+    <image class = "call-me-icon" src = '/images/phone3.png'></image>
+    <view class = "call-me-btn-text">与我联系</view>
+  </view> 
+</view>
+
+
+<view class="mask" bindtap="closeWorkExp" wx:if="{{isShowWorkExp}}">
+  <view class="mask-inner" style="height: {{ userInfo.workExp[showWorkExpId].project ? '100%' : 'auto'}};">
+    <view class="project">
+      <view class="titleBox">
+        <image class="logo" mode="aspectFit" src="{{userInfo.workExp[showWorkExpId].companyLogo}}"></image>
+        <view class="info">
+          <view class="name">{{userInfo.workExp[showWorkExpId].companyName}}</view>
+          <view class="time">{{userInfo.workExp[showWorkExpId].time}}</view>
+        </view>
+      </view>
+
+      <view class="h1">工作描述</view>
+      <view class="des" wx:for="{{userInfo.workExp[showWorkExpId].des}}" wx:key="index">
+        <view class="point"></view>
+        <view class="text">{{item}}</view>
+      </view>
+
+      <view class="h1 h2" wx:if="{{userInfo.workExp[showWorkExpId].project}}">部分项目经验</view>
+
+      <view wx:for="{{userInfo.workExp[showWorkExpId].project}}" wx:key="index" class="projectCard">
+        <view class="projectName">
+          <view class="text1">{{item.title}}</view>
+          <view class="text2">{{item.type}}</view>
+        </view>
+        <view class="content" wx:for="{{item.content}}" wx:key="index" wx:for-item="itemContent">
+          {{itemContent}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
